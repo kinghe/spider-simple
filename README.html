@@ -1,0 +1,383 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><style>/* Fonts */
+@font-face{
+  font-family: octicons-anchor;
+  src: url(data:font/woff;charset=utf-8;base64,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) format('woff');
+}
+
+/* Body */
+html { font-size: 100%; overflow-y: scroll; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
+
+body{
+  color:#4d4d4c;
+  font-family:Georgia, Palatino, 'Palatino Linotype', Times, 'Times New Roman',
+              "Hiragino Sans GB", "STXihei", "微软雅黑", serif;
+  font-size:12px;
+  line-height:1.5em;
+  background:#fefefe;
+  width: 45em;
+  margin: 10px auto;
+  padding: 30px;
+  border: 1px solid #ddd;
+  outline: 1300px solid #f8f8f8;
+}
+
+/* Links */
+a{ color: #06d; text-decoration:none; }
+a:hover{ color: #06e; text-decoration: underline; }
+a:active{ color:#faa700; }
+a:focus{ outline: thin dotted; }
+a:hover, a:active{ outline: 0; }
+
+::-moz-selection { background:rgba(255,255,0,0.3); color:#000 }
+::selection { background:rgba(255,255,0,0.3); color:#000 }
+
+a::-moz-selection { background:rgba(255,255,0,0.3); color:#0645ad }
+a::selection { background:rgba(255,255,0,0.3); color:#0645ad }
+
+/* Header Anchor Links*/
+.headeranchor-link {
+  color:#111;
+  border: 0;
+  margin-left: -20px;
+  padding-right: 6px;
+  cursor: pointer;
+  position: absolute;
+  display: block;
+  top: 0;
+  left: 0;
+  bottom: 0;
+}
+
+.headeranchor {
+  font: normal normal 16px octicons-anchor;
+  line-height: 1;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.headeranchor-link:hover,
+.headeranchor-link:visited,
+.headeranchor-link:active
+{ text-decoration: none; color:#4d4d4c; }
+.headeranchor-link:hover .headeranchor:before,
+h1:hover .headeranchor:before,
+h2:hover .headeranchor:before,
+h3:hover .headeranchor:before,
+h4:hover .headeranchor:before,
+h5:hover .headeranchor:before,
+h6:hover .headeranchor:before
+{ content: '\f05c'; }
+
+abbr { cursor: pointer; }
+
+/* Paragraphs */
+p { margin:1em 0; }
+
+/* Images */
+img {
+  max-width:100%;
+  border: 0;
+  -ms-interpolation-mode: bicubic;
+  vertical-align: middle;
+}
+
+/* Headers */
+h1,h2,h3,h4,h5,h6 {
+  font-weight:normal;
+  color:#111;
+  line-height: 1.7;
+  position: relative;
+}
+h4,h5,h6{ font-weight: bold; }
+h1 { font-size:2.5em; border-bottom: 1px solid #ddd;}
+h2 { font-size:2em; border-bottom:1px solid #eee; padding-bottom: 5px; }
+h3 { font-size:1.5em; }
+h4 { font-size:1.2em; }
+h5 { font-size:1em; }
+h6 { font-size:0.9em; }
+
+/* Block Quotes */
+blockquote {
+  color:#666666;
+  margin:0;
+  padding-left: 3em;
+  border-left: 0.5em #EEE solid;
+}
+hr { display: block; height: 2px; border: 0; border-top: 1px solid #aaa;border-bottom: 1px solid #eee; margin: 1em 0; padding: 0; }
+
+/* Raw Blocks */
+pre, code, kbd, samp {
+  color: #000;
+  font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  font-size: 0.88em;
+  background-color: #F8F8F8;
+  border: 1px solid #CCC;
+}
+
+pre {
+  padding: 10px;
+  overflow: auto;
+}
+
+code { padding: 0 3px 0 3px; }
+pre code { border: 0; padding: 0; }
+
+/* Admonition */
+.admonition {
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  font-size: 0.88em;
+  padding: 0.5em 1em 0.5em 1em;
+  margin: 10px auto;
+}
+
+.admonition p {
+  padding: 0;
+  margin: 0.5em 0 0.5em 0;
+}
+
+.admonition-title {
+  font-weight: bold;
+}
+
+.admonition.attention {
+  color: #4F8A10;
+  background-color: #DFF2BF;
+  border: 1px solid #4F8A10;
+}
+
+.admonition.caution {
+  color: #9F6000;
+  background-color: #FEEFB3;
+  border: 1px solid #9F6000;
+}
+
+.admonition.hint {
+  color: #00529B;
+  background-color: #BDE5F8;
+  border: 1px solid #00529B;
+}
+
+.admonition.danger {
+  color: #D8000C;
+  background-color: #FFBABA;
+  border: 1px solid #D8000C;
+}
+
+.admonition.note {
+  color: #888888;
+  background-color: #F8F8F8;
+  border: 1px solid #888888;
+}
+
+/* Inlines */
+b, strong { font-weight: bold; }
+
+ins { background: #ff9; color: #000; text-decoration: none; }
+
+mark { background: #ff0; color: #000; font-style: italic; font-weight: bold; }
+
+sub, sup { font-size: 75%; line-height: 0; position: relative; vertical-align: baseline; }
+sup { top: -0.5em; }
+sub { bottom: -0.25em; }
+
+dfn { font-style: italic; }
+
+/* Lists */
+ul, ol { padding-left: 30px; }
+li p:last-child { margin:0 }
+.task-list-item { list-style-type: none; }
+.task-list-item input { float:left; margin-left: -20px; margin-top: 6px; }
+dt { font-weight: bold; font-style: italic;}
+dd { margin: 0 0 0 2em; }
+
+/* Tables */
+table { width: 100%; border-collapse: collapse; overflow-x: auto; overflow-y: hidden; display: block;}
+table tr { background-color: #fefefe; }
+table tr:nth-child(2n) { background-color: #f8f8f8; }
+td, th { border: 1px solid #ddd; padding: 6px 13px; }
+
+/* Codehilite Tables */
+.codehilitetable { border: 0; border-spacing: 0; }
+.linenos, .code, .codehilitetable td { border: 0; padding: 0; }
+td:not(.linenos) .linenodiv { padding: 0 !important; }
+.code { width: 100%; }
+.linenos div pre, .linenodiv pre {
+  border: 0;
+  border-top: 1px solid #CCC;
+  border-left: 1px solid #CCC;
+  border-right: 1px solid #CCC;
+  border-bottom: 1px solid #CCC;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+  -webkit-border-top-left-radius: 3px;
+  -webkit-border-bottom-left-radius: 3px;
+  -moz-border-radius-topleft: 3px;
+  -moz-border-radius-bottomleft: 3px;
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+}
+
+.code div pre {
+  border: 0;
+  border-top: 1px solid #CCC;
+  border-right: 1px solid #CCC;
+  border-bottom: 1px solid #CCC;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+  -webkit-border-top-right-radius: 3px;
+  -webkit-border-bottom-right-radius: 3px;
+  -moz-border-radius-topright: 3px;
+  -moz-border-radius-bottomright: 3px;
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+
+/* Media */
+@media only screen and (min-width: 480px) {
+  body{ font-size:14px; }
+}
+
+@media only screen and (min-width: 768px) {
+  body{ font-size:16px; }
+}
+
+@media print {
+  * { background: transparent !important; color: black !important; filter:none !important; -ms-filter: none !important; }
+  body{ font-size:12pt; max-width:100%; outline:none; border: 0;}
+  a, a:visited { text-decoration: underline; }
+  .headeranchor-link { display: none; }
+  hr { height: 1px; border:0; border-bottom:1px solid black; }
+  a[href]:after { content: " (" attr(href) ")"; }
+  abbr[title]:after { content: " (" attr(title) ")"; }
+  .ir a:after, a[href^="javascript:"]:after, a[href^="#"]:after { content: ""; }
+  pre { white-space: pre; white-space: pre-wrap; word-wrap: break-word; }
+  pre, blockquote { border: 1px solid #999; padding-right: 1em; page-break-inside: avoid; }
+  tr, img { page-break-inside: avoid; }
+  img { max-width: 100% !important; }
+  p, h2, h3 { orphans: 3; widows: 3; }
+  h2, h3 { page-break-after: avoid; }
+}
+</style><title>README</title></head><body><h1 id="spider-simple"><a name="user-content-spider-simple" href="#spider-simple" class="headeranchor-link"  aria-hidden="true"><span class="headeranchor"></span></a>spider-simple</h1>
+<p>简易的网络爬虫系统</p>
+<h2 id="system-design"><a name="user-content-system-design" href="#system-design" class="headeranchor-link"  aria-hidden="true"><span class="headeranchor"></span></a>系统设计思路(System Design)</h2>
+<p>爬虫系统应该包括如下部分</p>
+<h3 id="1task-module"><a name="user-content-1task-module" href="#1task-module" class="headeranchor-link"  aria-hidden="true"><span class="headeranchor"></span></a>1任务管理模块task module。</h3>
+<p>用户和系统交互的中转部分,主要包括UI用户交互模块和任务执行模块。<br />
+任务主要包括4个状态<code>status</code>。<br />
+<em> <code>TODO</code> 由用户新建时预定义，主要用于任务后的状态识别。任务可以立即执行或者定时执行。<br />
+</em> <code>DOING</code> 任务开始启动时由任务模块变更任务状态。<br />
+<em> <code>DONE</code> 任务完成状态标志。由任务模块在所有任务结束后，负责变更到此任务状态，同时更新任务统计信息<code>statistics</code>。<br />
+</em> <code>UNDO</code> 任务取消，由用户手工确认后系统变更此标示，注意：<br />
+    * 1.任务处于UNDO/DONE时不可变更到此标示,即不可对以及取消或者以及完成的任务进行取消，操作无意义。<br />
+    * 2.任务处于<code>TODO</code>状态时，直接变更状态即可，无需通知任务执行模块。<br />
+    * 3.任务处于<code>DOING</code>状态时，不可直接变更状态需通知任务执行系统停止此任务的所有执行后，由任务执行系统变更到此状态，并同时统计任务已执行情况。</p>
+<p><code>template</code>任务规则或者模板.任务的核心部分，为任务执行模块的主要参考信息。<br />
+任务执行模块需对以及完成下载资源进行数据分析。并根据以下信息完成相关工作。<br />
+<em> 爬取资源过滤以及分组匹配信息。为资源爬取策略部分。即发现下一深度待爬取资源并提交资源下载模块。同时根据资源文件类型划分大的资源分组，并建立相关分组索引。默认资源分组包括:<code>网页HTML</code>,<code>多媒体multi-media</code>,<code>其他other</code>.资源分组部分设计详见数据分析模块。<br />
+</em> 数据分组匹配。根据匹配资源分组用于下载资源的统一整理。用途<br />
+    * 建立索引。将资源分组，从各个组资源中发现若干有用词<code>valid word</code>，用于和本组资源的映射工作。详见现代搜索引擎SEO。<br />
+    * <br />
+* 通知系统email或者sms等</p>
+<p>为适应多种用户，提供多种场景操作模式<code>scene</code>。<br />
+<em> <code>最简操作模式</code>。界面设计要求便捷，易操作。用户仅需提供一个url人口即可，资源爬取策略和数据分析挖掘模块由开发人员按照用户要求设计开发定制，以默认模板的方式提供。<br />
+</em> <code>定制操作模式</code>。提供自定义模板管理功能。对用户要求较高，用于更加精细化的任务定制,包括资源爬取策略和数据分析挖掘策略的自定义。</p>
+<p>数据模型定义<br />
+* <code>task</code> :爬虫任务/spider task。<br />
+    * |&ndash;id:pk<br />
+    * |&ndash;<code>status</code>:任务状态.新建待运行TODO，运行中DOING，完成DONE，任务取消UNDO.<br />
+    * |&ndash;url:资源入口。用于获取的第一个资源<br />
+    * |&ndash;depth:资源爬取深度.<br />
+    * |&ndash;start:任务启动时间(用于定时启动).<br />
+    * |&ndash;<code>template</code>:任务使用的爬虫规则模板(资源爬虫策略，数据分析挖掘，通知系统email或者sms等)<br />
+    * |&ndash;description:任务描述<br />
+    * |&ndash;<code>statistics</code>:执行结果(成功success，部分成功?half-success，失败failture)，爬取资源统计(总数,成功，失败)，耗时统计(总耗时，成功资源平均下载速度，失败资源耗时)，最优/差下载速度资源列举</p>
+<h3 id="2down-module"><a name="user-content-2down-module" href="#2down-module" class="headeranchor-link"  aria-hidden="true"><span class="headeranchor"></span></a>2.资源下载模块down module。</h3>
+<p>主要包括远程下载模块，本地资源存储<br />
+默认http方式下载，method为<code>get</code>,url中包括所有的请求内容.<br />
+请求附加可以改变请求类型，增加cookie。<br />
+下载完成后，分析资源类型，主要是<br />
+包括但不限于<code>html,js,css,jpg/png/gif,mp3/flv/mp4</code>.<br><br />
+默认保存到本地存储系统，本地存储路径定义在config文件中<br><br />
+每次下载均下载情况存储至sqlite数据表<code>down</code>中<br></p>
+<ul>
+<li><code>down</code>:资源下载信息/down info。<ul>
+<li>|&ndash;id:pk</li>
+<li>|&ndash;url:资源路径</li>
+<li>|&ndash;taskid:任务号，</li>
+<li>|&ndash;depth:爬虫深度，</li>
+<li>|&ndash;parent:来源资源，</li>
+<li>|&ndash;robot:执行爬虫(用于分布式系统)，</li>
+<li>|&ndash;status:资源状态(新建/下载中/成功/失败)</li>
+<li>|&ndash;tag:资源标签，用于索引查询</li>
+<li>|&ndash;start:开始时间，</li>
+<li>|&ndash;cost:下载所需时间(ms)</li>
+<li>|&ndash;size:资源大小。(Byte)</li>
+<li>|&ndash;charset:资源字符集。</li>
+<li>|&ndash;<code>index</code>:资源索引。</li>
+</ul>
+</li>
+</ul>
+<h3 id="3data-parse-module"><a name="user-content-3data-parse-module" href="#3data-parse-module" class="headeranchor-link"  aria-hidden="true"><span class="headeranchor"></span></a>3.数据分析模块/data parse module。</h3>
+<p>资源下载完成后随即进行数据分析过程。</p>
+<ul>
+<li>
+<p>根据规则文件定义，启动对指定资源类型的数据分析工作。并将数据分析结果反馈至<code>data-parse</code>表中。</p>
+<ul>
+<li><code>HTML文档</code>。爬虫系统的核心部分之一，系统将根据<code>HTML文档</code>解析为<code>DOM树</code>,使用<code>CSS</code>的方式分析指定的元素，挖掘出<ul>
+<li>新待下载资源。新建下一深度的资源列表，并保持至<code>down-res</code>表。<code>description@data-parse</code>记录资源id列表，个数。</li>
+<li>数据汇总/统计。为数据挖掘部分，挑选出用户需要的信息并输出至指定文档中。</li>
+</ul>
+</li>
+<li><code>XML文档</code>。如<code>RSS</code>，<code>WebService</code>等服务。</li>
+<li><code>图片文档</code>。图片的基本信息，如类型，大小，长宽等。后续深入图形学研究后进一步挖掘有用信息。</li>
+</ul>
+</li>
+<li>
+<p><code>data-parse</code>:记录每个资源(url)分析信息</p>
+<ul>
+<li>|&ndash;url:pk</li>
+<li>|&ndash;path:本地文件相对路径，</li>
+<li>|&ndash;task-id:任务号，</li>
+<li>|&ndash;down-id:对应的下载资源号，</li>
+<li>|&ndash;last:最近更新日期，</li>
+<li>|&ndash;type:资源类型(html,其他)，</li>
+<li>|&ndash;description:资源描述。</li>
+</ul>
+</li>
+</ul>
+<h3 id="4strategy-module"><a name="user-content-4strategy-module" href="#4strategy-module" class="headeranchor-link"  aria-hidden="true"><span class="headeranchor"></span></a>4.策略模块/strategy module。</h3>
+<p>根据资源类型，名称选择相关的数据解析模块。若无法找到资源解析器，不予解析.其中，HTML解析为核心模块。规则管理模块主要也是针对的html的解析。<br></p>
+<ul>
+<li>规则定义(syntax)。<ul>
+<li>基础语法结构B:<code>选择器selectors</code>{<code>标签处理tag handle</code>}。采用css语法获取待分析元素。<ul>
+<li>选择器selector.采用CSS2语法。</li>
+<li>标签处理tag handle。与css2相异。CSS2是对符合选择器的所有元素属性值的统一设置，而本规则是对符合选择器的所有元素属性值的迭代处理。<ul>
+<li>down url.新下载资源<code>url</code>。</li>
+<li>select data into gbl_list。将数据append指定的全局资源列表<code>gbl_list</code>中。其中<code>gbl_list</code>为数组，data为字符串string，数组list，或者字典map。当data为list|map时,常用于单个资源，或整个task完成后的统计分析工作</li>
+<li>group gbl_list [by index/key].为<code>gbl_list</code>分组</li>
+<li>template template_name.引用规则模板完成数据处理。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>复合语法结构C。<code>选择器selectors</code>[(B|C)+]</li>
+</ul>
+</li>
+<li>规则模板(template)。对常用的规则完成模板化。</li>
+</ul>
+<h3 id="_1"><a name="user-content-_1" href="#_1" class="headeranchor-link"  aria-hidden="true"><span class="headeranchor"></span></a>后续模块扩展的考虑</h3>
+<ul>
+<li>系统认证模块(cookies)</li>
+<li>定时采集</li>
+<li>定时通知</li>
+</ul></body></html>
