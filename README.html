@@ -269,9 +269,9 @@ td:not(.linenos) .linenodiv { padding: 0 !important; }
 }
 </style><title>README</title></head><body><h1 id="spider-simple"><a name="user-content-spider-simple" href="#spider-simple" class="headeranchor-link"  aria-hidden="true"><span class="headeranchor"></span></a>spider-simple</h1>
 <p>简易的网络爬虫系统</p>
-<h2 id="system-design"><a name="user-content-system-design" href="#system-design" class="headeranchor-link"  aria-hidden="true"><span class="headeranchor"></span></a>系统设计思路(System Design)</h2>
+<h1 id="system-design"><a name="user-content-system-design" href="#system-design" class="headeranchor-link"  aria-hidden="true"><span class="headeranchor"></span></a>系统设计思路(System Design)</h1>
 <p>爬虫系统应该包括如下部分</p>
-<h3 id="1task-module"><a name="user-content-1task-module" href="#1task-module" class="headeranchor-link"  aria-hidden="true"><span class="headeranchor"></span></a>1任务管理模块task module。</h3>
+<h2 id="task-module"><a name="user-content-task-module" href="#task-module" class="headeranchor-link"  aria-hidden="true"><span class="headeranchor"></span></a>任务管理模块task module。</h2>
 <p>用户和系统交互的中转部分,主要包括UI用户交互模块和任务执行模块。<br />
 任务主要包括4个状态<code>status</code>。<br />
 <em> <code>TODO</code> 由用户新建时预定义，主要用于任务后的状态识别。任务可以立即执行或者定时执行。<br />
@@ -281,82 +281,138 @@ td:not(.linenos) .linenodiv { padding: 0 !important; }
     * 1.任务处于UNDO/DONE时不可变更到此标示,即不可对以及取消或者以及完成的任务进行取消，操作无意义。<br />
     * 2.任务处于<code>TODO</code>状态时，直接变更状态即可，无需通知任务执行模块。<br />
     * 3.任务处于<code>DOING</code>状态时，不可直接变更状态需通知任务执行系统停止此任务的所有执行后，由任务执行系统变更到此状态，并同时统计任务已执行情况。</p>
-<p><code>template</code>任务规则或者模板.任务的核心部分，为任务执行模块的主要参考信息。<br />
-任务执行模块需对以及完成下载资源进行数据分析。并根据以下信息完成相关工作。<br />
-<em> 爬取资源过滤以及分组匹配信息。为资源爬取策略部分。即发现下一深度待爬取资源并提交资源下载模块。同时根据资源文件类型划分大的资源分组，并建立相关分组索引。默认资源分组包括:<code>网页HTML</code>,<code>多媒体multi-media</code>,<code>其他other</code>.资源分组部分设计详见数据分析模块。<br />
-</em> 数据分组匹配。根据匹配资源分组用于下载资源的统一整理。用途<br />
-    * 建立索引。将资源分组，从各个组资源中发现若干有用词<code>valid word</code>，用于和本组资源的映射工作。详见现代搜索引擎SEO。<br />
-    * <br />
-* 通知系统email或者sms等</p>
-<p>为适应多种用户，提供多种场景操作模式<code>scene</code>。<br />
-<em> <code>最简操作模式</code>。界面设计要求便捷，易操作。用户仅需提供一个url人口即可，资源爬取策略和数据分析挖掘模块由开发人员按照用户要求设计开发定制，以默认模板的方式提供。<br />
-</em> <code>定制操作模式</code>。提供自定义模板管理功能。对用户要求较高，用于更加精细化的任务定制,包括资源爬取策略和数据分析挖掘策略的自定义。</p>
-<p>数据模型定义<br />
-* <code>task</code> :爬虫任务/spider task。<br />
-    * |&ndash;id:pk<br />
-    * |&ndash;<code>status</code>:任务状态.新建待运行TODO，运行中DOING，完成DONE，任务取消UNDO.<br />
-    * |&ndash;url:资源入口。用于获取的第一个资源<br />
-    * |&ndash;depth:资源爬取深度.<br />
-    * |&ndash;start:任务启动时间(用于定时启动).<br />
-    * |&ndash;<code>template</code>:任务使用的爬虫规则模板(资源爬虫策略，数据分析挖掘，通知系统email或者sms等)<br />
-    * |&ndash;description:任务描述<br />
-    * |&ndash;<code>statistics</code>:执行结果(成功success，部分成功?half-success，失败failture)，爬取资源统计(总数,成功，失败)，耗时统计(总耗时，成功资源平均下载速度，失败资源耗时)，最优/差下载速度资源列举</p>
-<h3 id="2down-module"><a name="user-content-2down-module" href="#2down-module" class="headeranchor-link"  aria-hidden="true"><span class="headeranchor"></span></a>2.资源下载模块down module。</h3>
-<p>主要包括远程下载模块，本地资源存储<br />
-默认http方式下载，method为<code>get</code>,url中包括所有的请求内容.<br />
-请求附加可以改变请求类型，增加cookie。<br />
-下载完成后，分析资源类型，主要是<br />
-包括但不限于<code>html,js,css,jpg/png/gif,mp3/flv/mp4</code>.<br><br />
-默认保存到本地存储系统，本地存储路径定义在config文件中<br><br />
-每次下载均下载情况存储至sqlite数据表<code>down</code>中<br></p>
+<h3 id="task-run-module"><a name="user-content-task-run-module" href="#task-run-module" class="headeranchor-link"  aria-hidden="true"><span class="headeranchor"></span></a>任务运行模块<code>Task Run Module</code></h3>
+<p>任务运行模块的运行依赖于任务模板信息，见<code>template@task</code>。<br />
+任务模板信息主要包括<br />
+<em> 子任务并行策略。子任务主要包括资源下载任务<code>resource down</code> 和数据分析任务<code>data parse</code>。一个用户task由多个子任务构成。子任务之间存在执行依赖，并发控制，分布式调度等，安排子任务执行策略相当的重要。<br />
+</em> 下载会话策略。大部分系统需要经过身份验证后方可获取真正的资源。现运行的主要是经过特殊的子任务(请求登陆页面)获取所需的cookie。<br />
+<em> 资源分组策略。见<code>group@down</code>。待下载资源建立时先行建立文件分类索引，<br />
+    * <code>数据分析类</code> 主要包括<code>网页HTML</code>,<code>XML</code>。定义为数据分析类的资源用于建立相关联的<code>数据分析</code>子任务。<br />
+    * <code>多媒体multi-media</code> 主要包括图片类jpg/png/gif,视频类mp3/flv/mp4,文档类doc/xls/pdf<br />
+    * <code>其他other</code> 符合下载策略的资源，但不做任何处理。</em> 数据分析策略。主要完成数据的筛选，以进一步的处理。语句见<code>策略模块</code>。数据分析工作主要包括二个部分。<br />
+    * 资源爬取策略。筛选指定元素，从中获取新的资源url，资源描述，新建下载任务(存储于<code>down</code>表)，并调度下载模块完成资源下载。<br />
+    * 数据分组策略。筛选指定元素，从中获取有用数据(字符串或者格式化数据)，存储于<code>data</code>表(见<code>数据分析</code>-&gt;<code>数据模型定义</code>)，同时提取关键字为本组数据划分标签。<br />
+    * 通知策略。主要用于重要信息对用户的通知。筛选指定元素，从中获取有用数据通知用户。详见<code>系统模块</code>的<code>通知模块Notify Module</code>。</p>
+<h3 id="_1"><a name="user-content-_1" href="#_1" class="headeranchor-link"  aria-hidden="true"><span class="headeranchor"></span></a>数据模型定义</h3>
 <ul>
-<li><code>down</code>:资源下载信息/down info。<ul>
-<li>|&ndash;id:pk</li>
-<li>|&ndash;url:资源路径</li>
-<li>|&ndash;taskid:任务号，</li>
-<li>|&ndash;depth:爬虫深度，</li>
-<li>|&ndash;parent:来源资源，</li>
-<li>|&ndash;robot:执行爬虫(用于分布式系统)，</li>
-<li>|&ndash;status:资源状态(新建/下载中/成功/失败)</li>
-<li>|&ndash;tag:资源标签，用于索引查询</li>
-<li>|&ndash;start:开始时间，</li>
-<li>|&ndash;cost:下载所需时间(ms)</li>
-<li>|&ndash;size:资源大小。(Byte)</li>
-<li>|&ndash;charset:资源字符集。</li>
-<li>|&ndash;<code>index</code>:资源索引。</li>
+<li><code>task</code> :爬虫任务/spider task。<ul>
+<li>|&ndash;<code>id</code>:pk</li>
+<li>|&ndash;<code>status</code>:任务状态.新建待运行TODO，运行中DOING，完成DONE，任务取消UNDO.</li>
+<li>|&ndash;<code>url</code>:资源入口。用于获取的第一个资源</li>
+<li>|&ndash;<code>depth</code>:资源爬取深度.</li>
+<li>|&ndash;<code>start</code>:任务启动时间(用于定时启动).</li>
+<li>|&ndash;<code>template</code>:任务使用的爬虫规则模板(资源爬虫策略，数据分析挖掘，通知系统email或者sms等)</li>
+<li>|&ndash;<code>description</code>:任务描述</li>
+<li>|&ndash;`statistics:执行结果(成功success，部分成功?half-success，失败failture)，爬取资源统计(总数,成功，失败)，耗时统计(总耗时，成功资源平均下载速度，失败资源耗时)，最优/差下载速度资源列举</li>
 </ul>
 </li>
 </ul>
-<h3 id="3data-parse-module"><a name="user-content-3data-parse-module" href="#3data-parse-module" class="headeranchor-link"  aria-hidden="true"><span class="headeranchor"></span></a>3.数据分析模块/data parse module。</h3>
-<p>资源下载完成后随即进行数据分析过程。</p>
+<h2 id="down-module"><a name="user-content-down-module" href="#down-module" class="headeranchor-link"  aria-hidden="true"><span class="headeranchor"></span></a>资源下载模块down module。</h2>
+<h3 id="_2"><a name="user-content-_2" href="#_2" class="headeranchor-link"  aria-hidden="true"><span class="headeranchor"></span></a>系统信息</h3>
 <ul>
-<li>
-<p>根据规则文件定义，启动对指定资源类型的数据分析工作。并将数据分析结果反馈至<code>data-parse</code>表中。</p>
+<li>所属任务<code>task@down</code></li>
+<li>上一级资源<code>parent@down</code></li>
+<li>资源深度<code>depth@down</code></li>
+<li>本地或者局域网存储信息<code>store@down</code> </li>
+<li>执行下载的爬虫标示<code>spider@down</code> 下载任务执行时由执行的爬虫自行标示</li>
+<li>下载任务状态<code>status@down</code></li>
+</ul>
+<h3 id="_3"><a name="user-content-_3" href="#_3" class="headeranchor-link"  aria-hidden="true"><span class="headeranchor"></span></a>下载请求信息</h3>
 <ul>
-<li><code>HTML文档</code>。爬虫系统的核心部分之一，系统将根据<code>HTML文档</code>解析为<code>DOM树</code>,使用<code>CSS</code>的方式分析指定的元素，挖掘出<ul>
-<li>新待下载资源。新建下一深度的资源列表，并保持至<code>down-res</code>表。<code>description@data-parse</code>记录资源id列表，个数。</li>
-<li>数据汇总/统计。为数据挖掘部分，挑选出用户需要的信息并输出至指定文档中。</li>
+<li>资源远程路径<code>url@down</code>.</li>
+<li>用户请求类型<code>method@down</code>为空时默认get方法</li>
+<li>用户认证信息<code>cookie@down</code></li>
+</ul>
+<h3 id="_4"><a name="user-content-_4" href="#_4" class="headeranchor-link"  aria-hidden="true"><span class="headeranchor"></span></a>下载统计信息</h3>
+<ul>
+<li>下载开始时间<code>start@down</code></li>
+<li>时间消耗<code>spend@down</code></li>
+<li>资源大小<code>size@down</code></li>
+</ul>
+<h3 id="_5"><a name="user-content-_5" href="#_5" class="headeranchor-link"  aria-hidden="true"><span class="headeranchor"></span></a>资源信息</h3>
+<ul>
+<li>资源分组<code>group@down</code></li>
+<li>资源描述标签<code>tag@down</code></li>
+<li>文本文件字符集<code>charset@down</code></li>
+<li>资源描述<code>description@down</code></li>
+</ul>
+<h3 id="_6"><a name="user-content-_6" href="#_6" class="headeranchor-link"  aria-hidden="true"><span class="headeranchor"></span></a>数据模型定义</h3>
+<ul>
+<li><code>down</code>:资源下载信息/resource down info。<ul>
+<li>|&ndash;<code>id</code>:pk</li>
+<li>|&ndash;<code>task</code>:任务号，</li>
+<li>|&ndash;<code>parent</code>:来源资源，对于初始化资源此项为空。其他资源为来源资源的父id</li>
+<li>|&ndash;<code>depth</code>:爬虫深度，</li>
+<li>|&ndash;<code>store</code>:本地存储</li>
+<li>|&ndash;<code>spider</code>:执行爬虫(用于分布式系统)，同时也用于指定本地网络存储信息的位置</li>
+<li>|&ndash;<code>status</code>:资源状态(通<code>status@task</code>)</li>
+<li>|&ndash;<code>url</code>:资源路径</li>
+<li>|&ndash;<code>method</code>:资源请求类型。默认get</li>
+<li>|&ndash;<code>cookie</code>:资源cookie</li>
+<li>|&ndash;<code>start</code>:开始时间，</li>
+<li>|&ndash;<code>spend</code>:下载所需时间(ms)</li>
+<li>|&ndash;<code>size</code>:资源大小。(Byte)</li>
+<li>|&ndash;<code>group</code>:资源类型。</li>
+<li>|&ndash;<code>tag</code>:资源描述标签，用于索引查询，资源分组</li>
+<li>|&ndash;<code>charset</code>:资源字符集。</li>
+<li>|&ndash;<code>description</code>:资源描述</li>
 </ul>
 </li>
-<li><code>XML文档</code>。如<code>RSS</code>，<code>WebService</code>等服务。</li>
-<li><code>图片文档</code>。图片的基本信息，如类型，大小，长宽等。后续深入图形学研究后进一步挖掘有用信息。</li>
 </ul>
-</li>
-<li>
-<p><code>data-parse</code>:记录每个资源(url)分析信息</p>
+<h2 id="data-parse-module"><a name="user-content-data-parse-module" href="#data-parse-module" class="headeranchor-link"  aria-hidden="true"><span class="headeranchor"></span></a>数据分析模块/data parse module。</h2>
+<p>当数据分析类的资源下载完成后随即启动数据分析子任务。</p>
+<h3 id="resource-analysis"><a name="user-content-resource-analysis" href="#resource-analysis" class="headeranchor-link"  aria-hidden="true"><span class="headeranchor"></span></a>资源解析/Resource Analysis</h3>
+<p>依赖于<code>group@down</code>信息获取资源类型(分组)，调用系统维护的分组映射的资源解析器，完成资源数据解析。以用于下一个的<code>数据过滤</code>过程。<br />
+资源解析器最终将所有资源解析为一个dom树，用于后续的数据过滤。<br />
+资源分组类型</p>
 <ul>
-<li>|&ndash;url:pk</li>
-<li>|&ndash;path:本地文件相对路径，</li>
-<li>|&ndash;task-id:任务号，</li>
-<li>|&ndash;down-id:对应的下载资源号，</li>
-<li>|&ndash;last:最近更新日期，</li>
-<li>|&ndash;type:资源类型(html,其他)，</li>
-<li>|&ndash;description:资源描述。</li>
+<li><code>HTML</code>:网页文档，爬虫系统的主分析资源，为获取数据的主要方式。可直接转换为dom树,当js存在部分dom构建暂不考虑。</li>
+<li><code>XML</code>:xml文档，常用于<code>RSS</code>，<code>WebService</code>等服务的数据交换。可直接转换为dom树.</li>
+<li><code>文档</code>。包括doc，xls，pdf等。一般来说是将其先转为html文档，再进一步转为dom树。</li>
+<li><code>多媒体</code>:包括图片，音频，视频等。生成的dom树格式见下<pre><code>&lt;media&gt;   
+    &lt;image title=&rdquo; &rdquo; src=&rdquo; &rdquo; length=&rdquo; &rdquo; size=&rdquo; &rdquo; bit=&rdquo; &rdquo; subfix=&rdquo; &ldquo;&gt;   
+        &lt;pixel x=&rdquo; &rdquo; y=&rdquo; &ldquo;&gt;0xffffff&lt;pixel&gt;
+    &lt;/image&gt;   
+    &lt;audio title=&rdquo; &rdquo; src=&rdquo; &rdquo; length=&rdquo; &rdquo; size=&rdquo; &rdquo; time=&rdquo; &rdquo; subfix=&rdquo; &ldquo;&gt;   
+    &lt;/audio&gt;   
+    &lt;video&gt;    
+    &lt;/video&gt;   
+&lt;/media&gt;</code></pre>
+</li>
+</ul>
+<h3 id="data-filter"><a name="user-content-data-filter" href="#data-filter" class="headeranchor-link"  aria-hidden="true"><span class="headeranchor"></span></a>数据过滤/Data Filter</h3>
+<p>数据过滤采用CSS中的<code>选择子/Selectors</code>模型完成数据过滤。<br />
+用户可以定义多个<code>选择子/Selectors</code>并行运行，相互无关。<br />
+每一个<code>选择子/Selectors</code>均生成一个元素列表，用于后续的数据挖掘工作。</p>
+<h3 id="data-mining"><a name="user-content-data-mining" href="#data-mining" class="headeranchor-link"  aria-hidden="true"><span class="headeranchor"></span></a>数据挖掘/Data Mining</h3>
+<p>数据挖掘(Data Mining,DM),又称数据库中的知识发现(Knowledge Discover in Database,KDD).<br />
+是指从数据库的大量数据中揭示出隐含的、先前未知的并有潜在价值的信息的非平凡过程。<br />
+主要基于人工智能、机器学习、模式识别、统计学、数据库、可视化技术等，高度自动化地分析企业的数据，做出归纳性的推理，从中挖掘出潜在的模式，帮助决策者调整市场策略，减少风险，做出正确的决策。</p>
+<p>筛选相关元素用于以下处理。</p>
+<ul>
+<li>下载繁衍。即查找出新的待下载资源(避免重复下载，符合资源深度，下载url满足一定条件)，新建资源到下一深度，并保持至<code>down</code>表，等待下载模块执行。</li>
+<li>数据汇总/统计。挑选出用户需要的信息并存储至<code>dm</code>表，同时向<code>tag@dm</code>插入标签，用于信息索引。信息存储分为三种方式。<ul>
+<li>list。用户可提取关键字存储到<code>tag@dm</code>中，关键字存在多个时，空格分开。</li>
+<li>map。tag关键字格式为keyword[attr]。信息为二维表的指定cell的值</li>
+<li>tree。keyword[attr][attr2].</li>
+</ul>
+</li>
+<li>智能机器人，后续扩展此功能。在挖掘出有用信息后，系统提供的自动处理系统，具有简单智慧，自主学习功能，</li>
+</ul>
+<h3 id="_7"><a name="user-content-_7" href="#_7" class="headeranchor-link"  aria-hidden="true"><span class="headeranchor"></span></a>数据模型定义</h3>
+<ul>
+<li><code>dm</code>:记录每个资源(url)分析信息<ul>
+<li>|&ndash;<code>id</code>:pk.</li>
+<li>|&ndash;<code>down</code>:资源ID。记录数据挖掘信息的来源。</li>
+<li>|&ndash;<code>task</code>:任务号。</li>
+<li>|&ndash;<code>data</code>:数据存储信息，主要用于小数据量信息存储，当首字母为@时，则随后的字符串为一文件完整路径，用于挖掘信息的记录。</li>
+<li>|&ndash;<code>tag</code>:资源描述标签</li>
 </ul>
 </li>
 </ul>
-<h3 id="4strategy-module"><a name="user-content-4strategy-module" href="#4strategy-module" class="headeranchor-link"  aria-hidden="true"><span class="headeranchor"></span></a>4.策略模块/strategy module。</h3>
-<p>根据资源类型，名称选择相关的数据解析模块。若无法找到资源解析器，不予解析.其中，HTML解析为核心模块。规则管理模块主要也是针对的html的解析。<br></p>
+<h2 id="strategy-module"><a name="user-content-strategy-module" href="#strategy-module" class="headeranchor-link"  aria-hidden="true"><span class="headeranchor"></span></a>策略模块/strategy module。</h2>
+<p>数据分析<br />
+根据资源类型，名称选择相关的数据解析模块。若无法找到资源解析器，不予解析.其中，HTML解析为核心模块。规则管理模块主要也是针对的html的解析。<br></p>
 <ul>
 <li>规则定义(syntax)。<ul>
 <li>基础语法结构B:<code>选择器selectors</code>{<code>标签处理tag handle</code>}。采用css语法获取待分析元素。<ul>
@@ -375,9 +431,16 @@ td:not(.linenos) .linenodiv { padding: 0 !important; }
 </li>
 <li>规则模板(template)。对常用的规则完成模板化。</li>
 </ul>
-<h3 id="_1"><a name="user-content-_1" href="#_1" class="headeranchor-link"  aria-hidden="true"><span class="headeranchor"></span></a>后续模块扩展的考虑</h3>
-<ul>
-<li>系统认证模块(cookies)</li>
-<li>定时采集</li>
-<li>定时通知</li>
-</ul></body></html>
+<h2 id="system-module"><a name="user-content-system-module" href="#system-module" class="headeranchor-link"  aria-hidden="true"><span class="headeranchor"></span></a>系统模块System Module</h2>
+<p>系统通用模块</p>
+<h3 id="user-default-config"><a name="user-content-user-default-config" href="#user-default-config" class="headeranchor-link"  aria-hidden="true"><span class="headeranchor"></span></a>用户默认设置User Default Config</h3>
+<h3 id="timer"><a name="user-content-timer" href="#timer" class="headeranchor-link"  aria-hidden="true"><span class="headeranchor"></span></a>定时触发Timer</h3>
+<h3 id="notify-module"><a name="user-content-notify-module" href="#notify-module" class="headeranchor-link"  aria-hidden="true"><span class="headeranchor"></span></a>通知模块Notify Module</h3>
+<p>通知包括email，sms，app等。</p>
+<h3 id="_8"><a name="user-content-_8" href="#_8" class="headeranchor-link"  aria-hidden="true"><span class="headeranchor"></span></a>用户场景模式</h3>
+<p>为适应多种用户，提供多种场景操作模式<code>scene</code>。<br />
+<em> <code>最简操作模式</code>。界面设计要求便捷，易操作。用户仅需提供一个url人口即可，资源爬取策略和数据分析挖掘模块由开发人员按照用户要求设计开发定制，以默认模板的方式提供。<br />
+</em> <code>定制操作模式</code>。提供自定义模板管理功能。对用户要求较高，用于更加精细化的任务定制,包括资源爬取策略和数据分析挖掘策略的自定义。</p>
+<h2 id="_9"><a name="user-content-_9" href="#_9" class="headeranchor-link"  aria-hidden="true"><span class="headeranchor"></span></a>后续扩展</h2>
+<h3 id="intelligent-robot"><a name="user-content-intelligent-robot" href="#intelligent-robot" class="headeranchor-link"  aria-hidden="true"><span class="headeranchor"></span></a>智能机器人Intelligent Robot</h3>
+<p>作为数据分析的一个子部分</p></body></html>
