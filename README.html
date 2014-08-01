@@ -397,7 +397,7 @@ td:not(.linenos) .linenodiv { padding: 0 !important; }
 <li>tree。keyword[attr][attr2].</li>
 </ul>
 </li>
-<li>智能机器人，后续扩展此功能。在挖掘出有用信息后，系统提供的自动处理系统，具有简单智慧，自主学习功能，</li>
+<li>智能机器人，即根据系统现有的知识储备，找到映射的行动执行模块。后续扩展此功能。在挖掘出有用信息后，系统提供的自动处理系统，具有简单智慧，自主学习功能，</li>
 </ul>
 <h3 id="_7"><a name="user-content-_7" href="#_7" class="headeranchor-link"  aria-hidden="true"><span class="headeranchor"></span></a>数据模型定义</h3>
 <ul>
@@ -409,27 +409,6 @@ td:not(.linenos) .linenodiv { padding: 0 !important; }
 <li>|&ndash;<code>tag</code>:资源描述标签</li>
 </ul>
 </li>
-</ul>
-<h2 id="strategy-module"><a name="user-content-strategy-module" href="#strategy-module" class="headeranchor-link"  aria-hidden="true"><span class="headeranchor"></span></a>策略模块/strategy module。</h2>
-<p>数据分析<br />
-根据资源类型，名称选择相关的数据解析模块。若无法找到资源解析器，不予解析.其中，HTML解析为核心模块。规则管理模块主要也是针对的html的解析。<br></p>
-<ul>
-<li>规则定义(syntax)。<ul>
-<li>基础语法结构B:<code>选择器selectors</code>{<code>标签处理tag handle</code>}。采用css语法获取待分析元素。<ul>
-<li>选择器selector.采用CSS2语法。</li>
-<li>标签处理tag handle。与css2相异。CSS2是对符合选择器的所有元素属性值的统一设置，而本规则是对符合选择器的所有元素属性值的迭代处理。<ul>
-<li>down url.新下载资源<code>url</code>。</li>
-<li>select data into gbl_list。将数据append指定的全局资源列表<code>gbl_list</code>中。其中<code>gbl_list</code>为数组，data为字符串string，数组list，或者字典map。当data为list|map时,常用于单个资源，或整个task完成后的统计分析工作</li>
-<li>group gbl_list [by index/key].为<code>gbl_list</code>分组</li>
-<li>template template_name.引用规则模板完成数据处理。</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>复合语法结构C。<code>选择器selectors</code>[(B|C)+]</li>
-</ul>
-</li>
-<li>规则模板(template)。对常用的规则完成模板化。</li>
 </ul>
 <h2 id="system-module"><a name="user-content-system-module" href="#system-module" class="headeranchor-link"  aria-hidden="true"><span class="headeranchor"></span></a>系统模块System Module</h2>
 <p>系统通用模块</p>
